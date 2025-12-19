@@ -1,6 +1,6 @@
 from SmartApi import SmartConnect
 from SmartApi.smartWebSocketV2 import SmartWebSocketV2
-from multi_strategy import BreakoutStrategy
+from strategy import BreakoutStrategy
 import pyotp
 import threading
 import time
@@ -378,4 +378,5 @@ def run():
             return
 
 run()
+
 
