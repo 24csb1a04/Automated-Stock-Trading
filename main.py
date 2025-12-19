@@ -52,14 +52,14 @@ def logout():
                 logging.warning(f"Error during shutdown: {e}")
 status = "OK"
 strategies = {}
-active_position = None  # Holds ETF name
+active_position = None # Holds ETF nam
 sws = None
 lock = threading.Lock()
 high = {}
 stoploss = {}
 waiting_for_candle_update = {}
 trail_anchor = {}
-# Tokens (dummy values for now)
+# Tokens
 INDEX_ETF_PAIRS = {
     "NIFTY 50": "NIFTYBEES-EQ",
     "SILVERBESS-EQ": "SILVERBEES-EQ",
@@ -378,3 +378,4 @@ def run():
             return
 
 run()
+
