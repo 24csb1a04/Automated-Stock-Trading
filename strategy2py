@@ -33,13 +33,13 @@ class BreakoutStrategy:
         try:
             candles = self.smartApi.getCandleData({
                 "exchange": self.exchange,
-                "symboltoken": "99926000",
+                "symboltoken": self.token,
                 "interval": interval,
                 "fromdate": from_dt.strftime("%Y-%m-%d %H:%M"),
                 "todate": to_dt.strftime("%Y-%m-%d %H:%M"),
-                "tradingsymbol": "Nifty 50"
+                "tradingsymbol": self.symbol
             })
-            return candles['data'] if 'data' in candles else []
+            return candles['data'] if 'data' in candles else None
         except Exception as e:
             print("Candle fetch failed:", e)
             return None
@@ -99,12 +99,17 @@ class BreakoutStrategy:
         return False
 
     def should_trail_stoploss(self):
-        if (not self.trail_anchor)  or (not self.position) or (self.waiting_for_candle_update):
+        if (not self.trail_anchor) or (not self.position) or (self.waiting_for_candle_update):
             return False
-        now = datetime.datetime.now()
-        elapsed = now - self.trail_anchor
-        return elapsed.total_seconds() % (60*15) < 5
-
+        try:
+            now = datetime.datetime.now()
+            if isinstance(self.trail_anchor, str):
+                self.trail_anchor = datetime.datetime.strptime(self.trail_anchor, "%Y-%m-%d %H:%M:%S")
+                elapsed = now - self.trail_anchor
+                return elapsed.total_seconds() % (60 * 15) < 5
+        except Exception as e:
+                print(f"Error checking trail_stoploss: {e}")
+                return False
     def update_trailing_stoploss(self , ltp):
         try:
             print("Trying to update stoploss with ltp: " , ltp , "...")
