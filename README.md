@@ -5,9 +5,10 @@ Based on the indicators it performs the following tasks:
 2. Checks holdings of the user
 3. Computes Technical Indicators
 4. Access to Real-Time stock data using websockets
+# Project Directory 
 It comprises of the following files:
-1. strategy.py : The file containing the core code of the strategy
-2. main.py: The main file for placing orders and checking indicators.
+1. **strategy.py** : The file containing the core code of the strategy
+2. **main.py** : The main file for placing orders and checking indicators.
 # Brief Strategy Description  
 The strategy used was an intraday strategy with the following points: 
 1. We have already defined a set of ETFs/Stocks who need to be traded
